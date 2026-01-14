@@ -2,6 +2,7 @@ package main
 
 import (
 	"ecommerce/config"
+	"ecommerce/internal/database"
 	"fmt"
 	"log"
 	"net/http"
@@ -13,6 +14,12 @@ func main() {
 	portStr := cnf.HttpPort
 	port := strconv.Itoa(portStr)
 	fmt.Printf("Starting server on :%s\n", port)
+	//db connect
+	db,err:=database.DbConnect(config.GetDbConfig())
+	if err != nil {
+		log.Fatal("Error connecting db", err)
+		
+	}
 
 	mux := http.NewServeMux()
 
